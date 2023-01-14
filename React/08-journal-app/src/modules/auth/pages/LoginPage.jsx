@@ -8,7 +8,7 @@ export const LoginPage = () => {
     <AuthLayout title='Inicio de sesión'>
       <form>
         <Grid container>
-          <Grid Item xs={12} sx={{mb: 2}}>
+          <Grid item xs={12} sx={{mb: 2}}>
             <TextField 
               label='Correo'
               type='email'
@@ -17,7 +17,7 @@ export const LoginPage = () => {
             />
           </Grid>
 
-          <Grid Item xs={12}>
+          <Grid item xs={12}>
             <TextField 
               label='Contraseña'
               type='password'
@@ -40,7 +40,7 @@ export const LoginPage = () => {
             </Grid>
           </Grid>
 
-          <Grid contaner direction='row' justifyContent='end'>
+          <Grid container direction='row' justifyContent='end'>
             <Link component={RouterLink} color='inherit' to='/auth/register'>
               Crear una cuenta
             </Link>
