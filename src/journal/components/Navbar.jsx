@@ -5,7 +5,7 @@ import { AppBar, Avatar, Grid2, IconButton, Toolbar, Tooltip, Typography } from 
 export const Navbar = ({ drawerWidth = 240 }) => {
     return (
         <AppBar
-            position="sticky"
+            position="fixed"
             sx={{ width: { sm: `calc(100% - ${drawerWidth}px)` }, ml: { sm: `${drawerWidth}px` } }}
         >
             <Toolbar>
