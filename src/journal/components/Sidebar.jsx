@@ -26,23 +26,22 @@ export const Sidebar = ({ drawerWidth = 240 }) => {
                     '& .MuiDrawer-paper': {
                         boxSizing: 'border-box',
                         width: drawerWidth,
-                        backgroundColor: 'primary.main',
-                        color: 'white'
+                        backgroundColor: 'primary.main'
                     },
                 }}
             >
-                <Toolbar sx={{ display: { xs: 'none', sm: 'flex' } }}>
-                    <EventNote sx={{ mr: 2 }} />
+                <Toolbar sx={{ backgroundColor: 'secondary.main', display: { xs: 'none', sm: 'flex' } }}>
+                    <EventNote color="primary" sx={{ mr: 2 }} />
                     <Typography
                         variant="h6"
                         noWrap
                         component="a"
+                        color="primary"
                         sx={{
                             mr: 2,
                             fontFamily: 'monospace',
                             fontWeight: 700,
                             letterSpacing: '.3rem',
-                            color: 'inherit',
                             textDecoration: 'none',
                         }}
                     >
@@ -59,8 +58,8 @@ export const Sidebar = ({ drawerWidth = 240 }) => {
                                         <StickyNote2TwoTone color="secondary" />
                                     </ListItemIcon>
                                     <Grid2>
-                                        <ListItemText primary={mes} />
-                                        <ListItemText color="primary" secondary="lorem" />
+                                        <ListItemText sx={{ '& span': { color: 'secondary.main', fontSize: 18 } }} primary={mes} />
+                                        <ListItemText sx={{ '& p': { color: 'white' } }} secondary="lorem" />
                                     </Grid2>
                                 </ListItemButton>
                             </ListItem>
