@@ -7,7 +7,6 @@ import { onChangeTheme } from '../../redux/theme';
 
 export const Navbar = ({ drawerWidth = 240 }) => {
     const { displayName, photoURL } = useSelector(state => state.auth);
-    const { currentTheme } = useSelector(state => state.theme);
     const dispatch = useDispatch();
     const [isOpenMenu, setIsOpenMenu] = useState(false);
 
@@ -16,7 +15,7 @@ export const Navbar = ({ drawerWidth = 240 }) => {
     }
 
     const onSwitchTheme = () => {
-        dispatch(onChangeTheme(currentTheme))
+        dispatch(onChangeTheme())
     }
 
     const onLogout = () => {

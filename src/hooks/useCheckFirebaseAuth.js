@@ -11,7 +11,6 @@ export const useCheckFirebaseAuth = () => {
 
     useEffect(() => {
         const selectedTheme = localStorage.getItem('theme') || 'greenDark';
-        console.log(selectedTheme)
         dispatch(setTheme(selectedTheme));
 
         onAuthStateChanged(firebaseAuth, async (user) => {
