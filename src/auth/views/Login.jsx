@@ -1,5 +1,5 @@
 import { Google } from "@mui/icons-material"
-import { Alert, Button, Grid2, Link, TextField, Typography } from "@mui/material"
+import { Alert, Button, Grid2, LinearProgress, Link, TextField, Typography } from "@mui/material"
 import { Link as RouterLink } from "react-router"
 import { AuthLayout } from "../layout/AuthLayout";
 import { useForm } from "../../hooks/"
@@ -68,6 +68,7 @@ export const Login = () => {
                     Crear una cuenta
                 </Link>
             </Grid2>
+            {isAuthenticating && <LinearProgress sx={{mt: 2}} />}
         </AuthLayout>
     )
 }

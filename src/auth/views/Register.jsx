@@ -1,4 +1,4 @@
-import { Button, Grid2, TextField, Typography, Link, Alert } from "@mui/material"
+import { Button, Grid2, TextField, Typography, Link, Alert, LinearProgress } from "@mui/material"
 import { AuthLayout } from "../layout/AuthLayout"
 import { Link as RouterLink } from "react-router"
 import { useForm } from "../../hooks"
@@ -8,7 +8,7 @@ import { startRegisterWithEmail } from "../../redux/auth"
 
 export const Register = () => {
     const dispatch = useDispatch();
-    const {status, errorMessage} = useSelector(state => state.auth);
+    const { status, errorMessage } = useSelector(state => state.auth);
     const {
         fullName, email, password, onInputChange,
         fullNameError, emailError, passwordError, isFormValid
@@ -24,10 +24,10 @@ export const Register = () => {
         e.preventDefault();
         // Mostrar msjs de error y retornar si los hay
         setIsFormSubmitted(true);
-        if(!isFormValid) return;
+        if (!isFormValid) return;
 
         // Crear usuario con email y hacer login
-        dispatch(startRegisterWithEmail({fullName, email, password}));
+        dispatch(startRegisterWithEmail({ fullName, email, password }));
     }
 
     return (
@@ -85,6 +85,7 @@ export const Register = () => {
                     Iniciar sesión
                 </Link>
             </Grid2>
+            {isAuthenticating && <LinearProgress sx={{ mt: 2 }} />}
         </AuthLayout>
     )
 }
