@@ -1,16 +1,22 @@
 import { useState } from 'react';
-import { AccountCircle, EventNote, Logout, Menu as MeniIcon, Settings } from '@mui/icons-material';
-import { AppBar, Avatar, Button, Divider, Grid2, IconButton, ListItemIcon, Menu, MenuItem, Toolbar, Tooltip, Typography } from '@mui/material';
+import { AccountCircle, EventNote, Logout, Menu as MenuIcon, Settings } from '@mui/icons-material';
+import { AppBar, Avatar, Divider, Grid2, IconButton, ListItemIcon, Menu, MenuItem, Toolbar, Tooltip, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { startLogout } from '../../redux/auth';
+import { onChangeTheme } from '../../redux/theme';
 
 export const Navbar = ({ drawerWidth = 240 }) => {
     const { displayName, photoURL } = useSelector(state => state.auth);
+    const { currentTheme } = useSelector(state => state.theme);
     const dispatch = useDispatch();
     const [isOpenMenu, setIsOpenMenu] = useState(false);
 
     const onOpenMenu = () => {
         setIsOpenMenu(!isOpenMenu);
+    }
+
+    const onSwitchTheme = () => {
+        dispatch(onChangeTheme(currentTheme))
     }
 
     const onLogout = () => {
@@ -29,7 +35,7 @@ export const Navbar = ({ drawerWidth = 240 }) => {
                     color="inherit"
                     sx={{ mr: 2, display: { sm: 'none' } }}
                 >
-                    <MeniIcon />
+                    <MenuIcon />
                 </IconButton>
                 <Grid2 container alignItems="center" sx={{flexGrow: 1}} >
                     <EventNote sx={{ mr: 2, display: { sm: 'none' } }} />
@@ -73,12 +79,13 @@ export const Navbar = ({ drawerWidth = 240 }) => {
                         }}
                         open={isOpenMenu}
                         onClose={() => setIsOpenMenu(false)}
+                        onClick={() => setIsOpenMenu(false)}
                     >
-                        <MenuItem >
+                        <MenuItem>
                             {displayName}
                         </MenuItem>
                         <Divider />
-                        <MenuItem >
+                        <MenuItem onClick={onSwitchTheme}>
                             <ListItemIcon>
                                 <Settings color='primary' fontSize="small" />
                             </ListItemIcon>
