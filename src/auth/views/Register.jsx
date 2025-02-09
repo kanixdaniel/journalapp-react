@@ -1,13 +1,14 @@
-import { Button, Grid2, TextField, Typography, Link } from "@mui/material"
+import { Button, Grid2, TextField, Typography, Link, Alert } from "@mui/material"
 import { AuthLayout } from "../layout/AuthLayout"
 import { Link as RouterLink } from "react-router"
 import { useForm } from "../../hooks"
-import { useState } from "react"
-import { useDispatch } from "react-redux"
+import { useMemo, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import { startRegisterWithEmail } from "../../redux/auth"
 
 export const Register = () => {
     const dispatch = useDispatch();
+    const {status, errorMessage} = useSelector(state => state.auth);
     const {
         fullName, email, password, onInputChange,
         fullNameError, emailError, passwordError, isFormValid
@@ -16,7 +17,7 @@ export const Register = () => {
         email: 'kanix@google.com',
         password: 'Abc!1234',
     });
-
+    const isAuthenticating = useMemo(() => status === 'checking', [status]);
     const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
     const onSubmit = (e) => {
@@ -62,7 +63,7 @@ export const Register = () => {
                     <TextField
                         label="Contraseña"
                         type="password"
-                        sx={{ mb: 2 }}
+                        sx={{ mb: 1 }}
                         fullWidth
                         required
                         name="password"
@@ -71,7 +72,9 @@ export const Register = () => {
                         error={!!passwordError && isFormSubmitted}
                         helperText={passwordError}
                     />
-                    <Button type="submit" sx={{ mb: 2 }} variant="contained" fullWidth>
+
+                    <Alert sx={{ display: !!errorMessage ? '' : 'none', width: '100%' }} severity="error">{errorMessage}</Alert>
+                    <Button disabled={isAuthenticating} type="submit" sx={{ mb: 2 }} variant="contained" fullWidth>
                         <Typography textTransform="capitalize">Crear cuenta</Typography>
                     </Button>
                 </Grid2>

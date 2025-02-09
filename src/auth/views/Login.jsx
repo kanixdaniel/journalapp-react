@@ -1,5 +1,5 @@
 import { Google } from "@mui/icons-material"
-import { Button, Grid2, Link, TextField, Typography } from "@mui/material"
+import { Alert, Button, Grid2, Link, TextField, Typography } from "@mui/material"
 import { Link as RouterLink } from "react-router"
 import { AuthLayout } from "../layout/AuthLayout";
 import { useForm } from "../../hooks/"
@@ -9,7 +9,7 @@ import { useMemo } from "react";
 
 export const Login = () => {
     const dispatch = useDispatch();
-    const { status } = useSelector(state => state.auth)
+    const { status, errorMessage } = useSelector(state => state.auth)
     const { email, password, onInputChange } = useForm({
         email: 'kanix@google.com',
         password: '123456'
@@ -43,12 +43,13 @@ export const Login = () => {
                     <TextField
                         label="Contraseña"
                         type="password"
-                        sx={{ mb: 2 }}
+                        sx={{ mb: 1 }}
                         fullWidth
                         name="password"
                         value={password}
                         onChange={onInputChange}
                     />
+                    <Alert sx={{ display: !!errorMessage ? '' : 'none', width: '100%' }} severity="error">{errorMessage}</Alert>
                     <Grid2 size={{ xs: 12, md: 6 }}>
                         <Button disabled={isAuthenticating} type="submit" variant="contained" fullWidth>
                             <Typography textTransform="capitalize">Iniciar Sesión</Typography>

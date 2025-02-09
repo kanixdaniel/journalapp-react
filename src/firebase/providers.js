@@ -22,7 +22,7 @@ export const signInWithGoogle = async () => {
         return {
             ok: false,
             errorCode: code,
-            errorMessage: message
+            errorMessage: getErrorMessage(message)
         }
     }
 }
@@ -51,7 +51,18 @@ export const registerWithEmail = async ({ fullName, email, password }) => {
         return {
             ok: false,
             errorCode: code,
-            errorMessage: message
+            errorMessage: getErrorMessage(message)
         }
+    }
+}
+
+const getErrorMessage = (firebaseError) => {
+    switch (firebaseError) {
+        case 'Firebase: Error (auth/email-already-in-use).':
+            return 'Este usuario ya fue registrado'
+        case 'Firebase: Error (auth/popup-closed-by-user).':
+            return 'Ha cerrado la ventana emergente antes de completar el inicio de sesión. Intente de nuevo'
+        default:
+            return firebaseError;
     }
 }
