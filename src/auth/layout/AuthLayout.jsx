@@ -13,7 +13,7 @@ export const AuthLayout = ({ children, title = '' }) => {
             <Grid2
                 size={{ xs: 11, sm: 6, md: 4, lg: 3, xl: 2 }}
                 sx={{ backgroundColor: 'white', padding: 3, borderRadius: 2 }}
-                className="box-shadow"
+                className="box-shadow animate__animated animate__rotateInUpLeft"
             >
                 <Typography align="center" color="primary" variant="h4" sx={{ mb: 2 }}>{title}</Typography>
                 {children}

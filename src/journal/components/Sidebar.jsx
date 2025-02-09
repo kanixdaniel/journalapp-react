@@ -30,7 +30,9 @@ export const Sidebar = ({ drawerWidth = 240 }) => {
                     },
                 }}
             >
-                <Toolbar sx={{ backgroundColor: 'secondary.main', display: { xs: 'none', sm: 'flex' } }}>
+                <Toolbar 
+                    sx={{ backgroundColor: 'secondary.main', display: { xs: 'none', sm: 'flex' } }}
+                >
                     <EventNote color="primary" sx={{ mr: 2 }} />
                     <Typography
                         variant="h6"
@@ -52,7 +54,11 @@ export const Sidebar = ({ drawerWidth = 240 }) => {
                 <List /* onClick={() => handleDrawerClose(false)} */>
                     {
                         ['enero', 'febrero', 'marzo'].map(mes => (
-                            <ListItem key={mes} disablePadding>
+                            <ListItem
+                                key={mes}
+                                disablePadding
+                                className="animate__animated animate__fadeInUp"
+                            >
                                 <ListItemButton>
                                     <ListItemIcon>
                                         <StickyNote2TwoTone color="secondary" />

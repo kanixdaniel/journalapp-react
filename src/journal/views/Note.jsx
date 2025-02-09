@@ -6,6 +6,7 @@ export const Note = () => {
     return (
         <Box
             sx={{ minHeight: 'calc(100vh - 112px)'}}
+            className="animate__animated animate__fadeIn"
         >
             <Grid2
                 container
