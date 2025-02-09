@@ -3,15 +3,19 @@ import { Button, Grid2, Link, TextField, Typography } from "@mui/material"
 import { Link as RouterLink } from "react-router"
 import { AuthLayout } from "../layout/AuthLayout";
 import { useForm } from "../../hooks/"
-import { useDispatch } from "react-redux";
-import { checkingAuthentication } from "../../redux/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { checkingAuthentication, startGoogleSignIn } from "../../redux/auth";
+import { useMemo } from "react";
 
 export const Login = () => {
     const dispatch = useDispatch();
-    const {email, password, onInputChange} = useForm({
+    const { status } = useSelector(state => state.auth)
+    const { email, password, onInputChange } = useForm({
         email: 'kanix@google.com',
         password: '123456'
     });
+
+    const isAuthenticating = useMemo(() => status === 'checking', [status]);
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -19,7 +23,7 @@ export const Login = () => {
     }
 
     const onGoogleSignIn = () => {
-        console.log('google login')
+        dispatch(startGoogleSignIn());
     }
 
     return (
@@ -46,12 +50,12 @@ export const Login = () => {
                         onChange={onInputChange}
                     />
                     <Grid2 size={{ xs: 12, md: 6 }}>
-                        <Button type="submit" variant="contained" fullWidth>
+                        <Button disabled={isAuthenticating} type="submit" variant="contained" fullWidth>
                             <Typography textTransform="capitalize">Iniciar Sesión</Typography>
                         </Button>
                     </Grid2>
                     <Grid2 sx={{ mb: 2 }} size={{ xs: 12, md: 6 }}>
-                        <Button onClick={onGoogleSignIn} variant="contained" fullWidth>
+                        <Button disabled={isAuthenticating} onClick={onGoogleSignIn} variant="contained" fullWidth>
                             <Google />
                             <Typography textTransform="capitalize" sx={{ ml: 1 }}>Google</Typography>
                         </Button>
