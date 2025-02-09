@@ -3,8 +3,11 @@ import { AuthLayout } from "../layout/AuthLayout"
 import { Link as RouterLink } from "react-router"
 import { useForm } from "../../hooks"
 import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { startRegisterWithEmail } from "../../redux/auth"
 
 export const Register = () => {
+    const dispatch = useDispatch();
     const {
         fullName, email, password, onInputChange,
         fullNameError, emailError, passwordError, isFormValid
@@ -22,7 +25,8 @@ export const Register = () => {
         setIsFormSubmitted(true);
         if(!isFormValid) return;
 
-        
+        // Crear usuario con email y hacer login
+        dispatch(startRegisterWithEmail({fullName, email, password}));
     }
 
     return (
