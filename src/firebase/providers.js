@@ -75,6 +75,10 @@ export const registerWithEmail = async ({ fullName, email, password }) => {
     }
 }
 
+export const logoutFirebase = async () => {
+    return await firebaseAuth.signOut();
+}
+
 const getErrorMessage = (firebaseError) => {
     switch (firebaseError) {
         case 'Firebase: Error (auth/email-already-in-use).':

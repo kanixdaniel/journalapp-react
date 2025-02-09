@@ -1,8 +1,22 @@
-import * as React from 'react';
-import { EventNote, Menu } from '@mui/icons-material';
-import { AppBar, Avatar, Grid2, IconButton, Toolbar, Tooltip, Typography } from '@mui/material';
+import { useState } from 'react';
+import { AccountCircle, EventNote, Logout, Menu as MeniIcon, Settings } from '@mui/icons-material';
+import { AppBar, Avatar, Button, Divider, Grid2, IconButton, ListItemIcon, Menu, MenuItem, Toolbar, Tooltip, Typography } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { startLogout } from '../../redux/auth';
 
 export const Navbar = ({ drawerWidth = 240 }) => {
+    const { displayName, photoURL } = useSelector(state => state.auth);
+    const dispatch = useDispatch();
+    const [isOpenMenu, setIsOpenMenu] = useState(false);
+
+    const onOpenMenu = () => {
+        setIsOpenMenu(!isOpenMenu);
+    }
+
+    const onLogout = () => {
+        dispatch(startLogout());
+    }
+
     return (
         <AppBar
             position="fixed"
@@ -15,7 +29,7 @@ export const Navbar = ({ drawerWidth = 240 }) => {
                     color="inherit"
                     sx={{ mr: 2, display: { sm: 'none' } }}
                 >
-                    <Menu />
+                    <MeniIcon />
                 </IconButton>
                 <Grid2 container alignItems="center" sx={{flexGrow: 1}} >
                     <EventNote sx={{ mr: 2, display: { sm: 'none' } }} />
@@ -37,11 +51,46 @@ export const Navbar = ({ drawerWidth = 240 }) => {
                     </Typography>
                 </Grid2>
                 <Grid2 sx={{ flexGrow: 0 }}>
-                    <Tooltip title="Open settings">
-                        <IconButton sx={{ p: 0 }}>
-                            <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                    <Tooltip title="Opciones del usuario">
+                        <IconButton sx={{ p: 0 }} onClick={onOpenMenu}>
+                            {
+                                photoURL
+                                    ? <Avatar alt={displayName} src={photoURL} />
+                                    : <AccountCircle color='secondary' />
+                            }
                         </IconButton>
                     </Tooltip>
+                    <Menu
+                        sx={{ mt: '45px', '& ul': { backgroundColor: 'secondary.main', color: 'primary.main' } }}
+                        anchorOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }}
+                        keepMounted
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }}
+                        open={isOpenMenu}
+                        onClose={() => setIsOpenMenu(false)}
+                    >
+                        <MenuItem >
+                            {displayName}
+                        </MenuItem>
+                        <Divider />
+                        <MenuItem >
+                            <ListItemIcon>
+                                <Settings color='primary' fontSize="small" />
+                            </ListItemIcon>
+                            Cambiar tema
+                        </MenuItem>
+                        <MenuItem onClick={onLogout}>
+                            <ListItemIcon>
+                                <Logout color='primary' fontSize="small" />
+                            </ListItemIcon>
+                            Cerrar sesión
+                        </MenuItem>
+                    </Menu>
                 </Grid2>
             </Toolbar>
         </AppBar>
