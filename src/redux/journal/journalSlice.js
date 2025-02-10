@@ -9,17 +9,17 @@ export const journalSlice = createSlice({
         active: null,
     },
     reducers: {
-        addNewEmptyNote: (state, {payload}) => {
+        addNewEmptyNote: (state, { payload }) => {
             state.notes.push(payload);
             state.isSaving = false
         },
-        setActiveNote: (state, {payload}) => {
+        setActiveNote: (state, { payload }) => {
             state.active = payload;
         },
-        setNotes: (state, action) => {
-
+        setNotes: (state, { payload }) => {
+            state.notes = payload
         },
-        setSaving: (state, {payload}) => {
+        setSaving: (state, { payload }) => {
             state.isSaving = payload;
         },
         updateNotes: (state, action) => {

@@ -1,8 +1,11 @@
-import { EventNote, StickyNote2TwoTone } from "@mui/icons-material"
-import { Box, Divider, Drawer, Grid2, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from "@mui/material"
+import { EventNote } from "@mui/icons-material"
+import { Box, Divider, Drawer, List, Toolbar, Typography } from "@mui/material"
 import { useState } from "react"
+import { useSelector } from "react-redux"
+import { SidebarItem } from "./"
 
 export const Sidebar = ({ drawerWidth = 240 }) => {
+    const { notes } = useSelector(state => state.journal);
     const [isOpen, setIsOpen] = useState(true);
 
     const handleDrawerClose = (newValue) => {
@@ -53,22 +56,8 @@ export const Sidebar = ({ drawerWidth = 240 }) => {
                 <Divider />
                 <List /* onClick={() => handleDrawerClose(false)} */>
                     {
-                        ['enero', 'febrero', 'marzo'].map(mes => (
-                            <ListItem
-                                key={mes}
-                                disablePadding
-                                className="animate__animated animate__fadeInUp"
-                            >
-                                <ListItemButton>
-                                    <ListItemIcon>
-                                        <StickyNote2TwoTone color="secondary" />
-                                    </ListItemIcon>
-                                    <Grid2>
-                                        <ListItemText sx={{ '& span': { color: 'secondary.main', fontSize: 18 } }} primary={mes} />
-                                        <ListItemText sx={{ '& p': { color: 'white' } }} secondary="lorem" />
-                                    </Grid2>
-                                </ListItemButton>
-                            </ListItem>
+                        notes.map(note => (
+                            <SidebarItem key={note.id} {...note} />
                         ))
                     }
                 </List>
