@@ -1,7 +1,7 @@
 import { collection, doc, setDoc } from "firebase/firestore/lite";
 import { firebaseDb } from "../../firebase/config";
-import { addNewEmptyNote, setActiveNote, setMessageOnSaved, setNotes, setSaving, updateNote } from "./";
-import { loadNotes } from "../../helpers";
+import { addNewEmptyNote, setActiveNote, setMessageOnSaved, setNotes, setSaving, setUploadedImages, updateNote } from "./";
+import { fileUpload, loadNotes } from "../../helpers";
 import { logout } from "../auth";
 
 export const startLoadingAllNotes = () => {
@@ -31,6 +31,7 @@ export const startNewNote = () => {
                 title: '',
                 body: '',
                 date: new Date().getTime(),
+                imageUrls: []
             }
     
             const newDoc = doc(collection(firebaseDb, `${uid}/journal/notes`));
@@ -69,6 +70,27 @@ export const startSaveNote = () => {
             console.error(error);
             dispatch(setSaving(false));
             dispatch(setMessageOnSaved('No fue posible actualizar la nota. Intente más tarde'));
+        }
+    }
+}
+
+export const startUploadingFiles = (files = []) => {
+    return async (dispatch) => {
+        try {
+            dispatch(setSaving(true));
+
+            const fileUploadPromises = [];
+            for (const file of files) {
+                fileUploadPromises.push(fileUpload(file));
+            }
+            const imageUrls = await Promise.all(fileUploadPromises);
+
+            dispatch(setUploadedImages(imageUrls));
+            dispatch(setSaving(false));
+        } catch (error) {
+            console.error(error);
+            dispatch(setSaving(false));
+            dispatch(setMessageOnSaved(error.message));
         }
     }
 }

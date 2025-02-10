@@ -1,10 +1,10 @@
-import { Save } from "@mui/icons-material"
+import { Save, CloudUpload } from "@mui/icons-material"
 import { Box, Button, Grid2, Snackbar, TextField, Typography } from "@mui/material"
 import { ImageGallery } from "../components"
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "../../hooks";
 import { useEffect, useMemo, useState } from "react";
-import { setActiveNote, setMessageOnSaved, startSaveNote } from "../../redux/journal";
+import { setActiveNote, setMessageOnSaved, startSaveNote, startUploadingFiles } from "../../redux/journal";
 
 export const Note = () => {
     const dispatch = useDispatch();
@@ -21,6 +21,13 @@ export const Note = () => {
     const onSaveNote = () => {
         dispatch(setActiveNote(formState));
         dispatch(startSaveNote());
+    }
+
+    const onInputFileChange = ({target}) => {
+        if(target.files === 0) return;
+
+        console.log('subiendo')
+        dispatch(startUploadingFiles(target.files));
     }
 
     const onCloseSnackbar = () => {
@@ -57,6 +64,7 @@ export const Note = () => {
                 <Button
                     startIcon={<Save />}
                     size="large"
+                    variant="contained"
                     onClick={onSaveNote}
                     disabled={isSaving}
                 >
@@ -88,6 +96,20 @@ export const Note = () => {
                     name="body"
                     value={body}
                 />
+
+                <Button
+                    component="label"
+                    tabIndex={-1}
+                    disabled={isSaving}
+                    startIcon={<CloudUpload />}
+                >
+                    Agregar archivos
+                    <input
+                        type="file"
+                        multiple
+                        onChange={onInputFileChange}
+                    />
+                </Button>
             </Grid2>
 
             <ImageGallery />
