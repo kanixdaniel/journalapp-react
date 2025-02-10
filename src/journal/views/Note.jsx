@@ -4,9 +4,9 @@ import { ImageGallery } from "../components"
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "../../hooks";
 import { useEffect, useMemo, useState } from "react";
-import { setActiveNote, setMessageOnSave, startSaveNote } from "../../redux/journal";
+import { setActiveNote, setMessageOnSaved, startSaveNote } from "../../redux/journal";
 
-export const Note = (props) => {
+export const Note = () => {
     const dispatch = useDispatch();
     const { active, isSaving, messageOnSaved } = useSelector(state => state.journal);
     const { title, body, date, onInputChange, formState } = useForm(active);
@@ -14,7 +14,8 @@ export const Note = (props) => {
     const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
-        if (messageOnSaved.length > 0) setIsOpen(true);
+        if (messageOnSaved !== '') return setIsOpen(true);
+        setIsOpen(false);
     }, [messageOnSaved]);
 
     const onSaveNote = () => {
@@ -23,8 +24,8 @@ export const Note = (props) => {
     }
 
     const onCloseSnackbar = () => {
+        dispatch(setMessageOnSaved(''));
         setIsOpen(false);
-        dispatch(setMessageOnSave(''));
     }
 
     return (
@@ -37,7 +38,7 @@ export const Note = (props) => {
                 open={isOpen}
                 onClose={onCloseSnackbar}
                 message={messageOnSaved}
-                autoHideDuration={6000}
+                autoHideDuration={4000}
                 key={active.id}
                 sx={{ 
                     left: '325px !important',

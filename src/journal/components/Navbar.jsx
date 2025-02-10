@@ -36,7 +36,7 @@ export const Navbar = ({ drawerWidth = 240 }) => {
                 >
                     <MenuIcon />
                 </IconButton>
-                <Grid2 container alignItems="center" sx={{flexGrow: 1}} >
+                <Grid2 container alignItems="center" sx={{ flexGrow: 1 }} >
                     <EventNote sx={{ mr: 2, display: { sm: 'none' } }} />
                     <Typography
                         variant="h6"
@@ -49,7 +49,7 @@ export const Navbar = ({ drawerWidth = 240 }) => {
                             letterSpacing: '.3rem',
                             color: 'inherit',
                             textDecoration: 'none',
-                            display: { sm: 'none' } 
+                            display: { sm: 'none' }
                         }}
                     >
                         JOURNAL APP
