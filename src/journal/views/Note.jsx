@@ -1,14 +1,21 @@
 import { Save } from "@mui/icons-material"
 import { Box, Button, Grid2, TextField, Typography } from "@mui/material"
 import { ImageGallery } from "../components"
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "../../hooks";
 import { useMemo } from "react";
+import { setActiveNote, startSaveNote } from "../../redux/journal";
 
 export const Note = () => {
-    const { active } = useSelector(state => state.journal);
+    const dispatch = useDispatch();
+    const { active, isSaving } = useSelector(state => state.journal);
     const { title, body, date, onInputChange, formState } = useForm(active);
-    const dateString = useMemo(() => new Date(date).toDateString(), [date])
+    const dateString = useMemo(() => new Date(date).toDateString(), [date]);
+
+    const onSaveNote = () => {
+        dispatch(setActiveNote(formState));
+        dispatch(startSaveNote());
+    }
 
     return (
         <Box
@@ -21,7 +28,12 @@ export const Note = () => {
                 alignItems="center"
             >
                 <Typography fontSize={39} fontWeight="light">{ dateString }</Typography>
-                <Button startIcon={<Save />} size="large">
+                <Button
+                    startIcon={<Save />}
+                    size="large"
+                    onClick={onSaveNote}
+                    disabled={isSaving}
+                >
                     Guardar
                 </Button>
             </Grid2>
