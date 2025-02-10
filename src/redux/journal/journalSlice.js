@@ -30,8 +30,9 @@ export const journalSlice = createSlice({
         setUploadedImages: (state, { payload }) => {
             state.active.imageUrls = [...payload, ...state.active.imageUrls];
         },
-        deleteNoteById: (state, action) => {
-
+        deleteNoteById: (state, { payload }) => {
+            state.notes = state.notes.filter(note => note.id !== payload);
+            state.active = null;
         },
         clearJournalState: (state) => {
             state.isSaving = false;

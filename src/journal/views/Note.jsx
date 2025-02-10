@@ -1,10 +1,10 @@
-import { Save, CloudUpload } from "@mui/icons-material"
+import { Save, CloudUpload, Delete } from "@mui/icons-material"
 import { Box, Button, Grid2, Snackbar, TextField, Typography } from "@mui/material"
 import { ImageGallery } from "../components"
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "../../hooks";
 import { useEffect, useMemo, useState } from "react";
-import { setActiveNote, setMessageOnSaved, startSaveNote, startUploadingFiles } from "../../redux/journal";
+import { setActiveNote, setMessageOnSaved, startDeleteNote, startSaveNote, startUploadingFiles } from "../../redux/journal";
 
 export const Note = () => {
     const dispatch = useDispatch();
@@ -27,6 +27,10 @@ export const Note = () => {
         if(target.files === 0) return;
 
         dispatch(startUploadingFiles(target.files));
+    }
+
+    const onDelete = () => {
+        dispatch(startDeleteNote());
     }
 
     const onCloseSnackbar = () => {
@@ -59,7 +63,6 @@ export const Note = () => {
                 justifyContent="space-between"
                 alignItems="center"
             >
-                <Typography fontSize={39} fontWeight="light">{dateString}</Typography>
                 <Button
                     startIcon={<Save />}
                     size="large"
@@ -68,6 +71,17 @@ export const Note = () => {
                     disabled={isSaving}
                 >
                     Guardar
+                </Button>
+                <Typography fontSize={39} fontWeight="light">{dateString}</Typography>
+                <Button
+                    startIcon={<Delete />}
+                    size="large"
+                    variant="outlined"
+                    color="error"
+                    onClick={onDelete}
+                    disabled={isSaving}
+                >
+                    Eliminar nota
                 </Button>
             </Grid2>
 
