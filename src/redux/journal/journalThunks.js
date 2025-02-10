@@ -2,7 +2,6 @@ import { collection, doc, setDoc } from "firebase/firestore/lite";
 import { firebaseDb } from "../../firebase/config";
 import { addNewEmptyNote, setActiveNote, setMessageOnSaved, setNotes, setSaving, setUploadedImages, updateNote } from "./";
 import { fileUpload, loadNotes } from "../../helpers";
-import { logout } from "../auth";
 
 export const startLoadingAllNotes = () => {
     return async (dispatch, getState) => {

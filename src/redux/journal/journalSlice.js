@@ -33,16 +33,23 @@ export const journalSlice = createSlice({
         deleteNoteById: (state, action) => {
 
         },
+        clearJournalState: (state) => {
+            state.isSaving = false;
+            state.messageOnSaved = '';
+            state.notes = [];
+            state.active = null;
+        },
     }
 });
 
 export const {
     addNewEmptyNote,
+    clearJournalState,
+    deleteNoteById,
     setActiveNote,
+    setMessageOnSaved,
     setNotes,
     setSaving,
-    setMessageOnSaved,
-    updateNote,
     setUploadedImages,
-    deleteNoteById,
+    updateNote,
 } = journalSlice.actions;
