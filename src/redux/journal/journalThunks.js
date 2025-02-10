@@ -24,11 +24,11 @@ export const startNewNote = () => {
         }
 
         const newDoc = doc(collection(firebaseDb, `${uid}/journal/notes`));
-        const resp = await setDoc(newDoc, newNote);
+        await setDoc(newDoc, newNote);
 
         newNote.id = newDoc.id;
 
         dispatch(addNewEmptyNote(newNote));
-        dispatch(setActiveNote(true));
+        dispatch(setActiveNote(newNote));
     }
 }

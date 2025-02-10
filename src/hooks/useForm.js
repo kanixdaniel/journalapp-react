@@ -1,10 +1,10 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { errorMessages, regExp } from "../shared/constants";
 
 export const useForm = (initialForm = {}) => {
     const [formState, setFormState] = useState(initialForm);
+    useEffect(() => setFormState(initialForm), [initialForm]);
     const [formErrors, setFormErrors] = useState({});
-
     const isFormValid =  useMemo(() => {
         for (const formValue of Object.keys(formErrors)) {
             if (formErrors[formValue] !== null) return false;

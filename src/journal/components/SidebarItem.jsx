@@ -1,12 +1,21 @@
 import { StickyNote2TwoTone } from "@mui/icons-material"
 import { Divider, Grid2, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material"
+import { useDispatch } from "react-redux"
+import { setActiveNote } from "../../redux/journal";
 
-export const SidebarItem = ({ title, date }) => {
+export const SidebarItem = ({ note }) => {
+    const dispatch = useDispatch();
+
+    const onSelectItem = () => {
+        dispatch(setActiveNote(note));
+    }
+
     return (
         <>
             <ListItem
                 disablePadding
-                className="animate__animated animate__fadeInUp"
+                onClick={onSelectItem}
+                className="animate__animated animate__fadeInRight"
             >
                 <ListItemButton>
                     <ListItemIcon>
@@ -20,20 +29,23 @@ export const SidebarItem = ({ title, date }) => {
                                     fontSize: 18,
                                     overflow: 'hidden',
                                     display: '-webkit-box',
-                                    '-webkit-box-orient': 'vertical',
-                                    '-webkit-line-clamp': '1'
+                                    WebkitBoxOrient: 'vertical',
+                                    WebkitLineClamp: '1'
                                 }
                             }}
-                            primary={title}
+                            primary={note.title}
                         />
                         <ListItemText
                             sx={{ '& p': { color: 'white' } }}
-                            secondary={new Date(date).toDateString()}
+                            secondary={new Date(note.date).toDateString()}
                         />
                     </Grid2>
                 </ListItemButton>
             </ListItem>
-            <Divider sx={{ backgroundColor: 'secondary.main'}} />
+            <Divider
+                sx={{ backgroundColor: 'secondary.main' }}
+                className="animate__animated animate__fadeInRight"
+            />
         </>
     )
 }

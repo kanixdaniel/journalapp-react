@@ -57,7 +57,7 @@ export const Sidebar = ({ drawerWidth = 240 }) => {
                 <List /* onClick={() => handleDrawerClose(false)} */>
                     {
                         notes.map(note => (
-                            <SidebarItem key={note.id} {...note} />
+                            <SidebarItem key={note.id} note={note} />
                         ))
                     }
                 </List>
