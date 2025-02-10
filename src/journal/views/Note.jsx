@@ -26,7 +26,6 @@ export const Note = () => {
     const onInputFileChange = ({target}) => {
         if(target.files === 0) return;
 
-        console.log('subiendo')
         dispatch(startUploadingFiles(target.files));
     }
 
@@ -112,7 +111,7 @@ export const Note = () => {
                 </Button>
             </Grid2>
 
-            <ImageGallery />
+            <ImageGallery images={active.imageUrls} />
         </Box>
     )
 }
