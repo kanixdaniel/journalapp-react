@@ -1,6 +1,6 @@
 import { collection, doc, setDoc } from "firebase/firestore/lite";
 import { firebaseDb } from "../../firebase/config";
-import { addNewEmptyNote, setActiveNote, setNotes, setSaving, updateNote } from "./";
+import { addNewEmptyNote, setActiveNote, setMessageOnSave, setNotes, setSaving, updateNote } from "./";
 import { loadNotes } from "../../helpers";
 
 export const startLoadingAllNotes = () => {
@@ -46,5 +46,7 @@ export const startSaveNote = () => {
         const docRef = doc(firebaseDb, `${uid}/journal/notes/${note.id}`);
         await setDoc(docRef, noteToFirestore, { merge: true });
         dispatch(updateNote(note));
+        dispatch(setSaving(false));
+        dispatch(setMessageOnSave('Nota actualizada correctamente'));
     }
 }
