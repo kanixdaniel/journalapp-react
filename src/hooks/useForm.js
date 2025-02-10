@@ -24,7 +24,7 @@ export const useForm = (initialForm = {}) => {
     };
 
     const onInvalidInput = ({ value, name }) => {
-        const isValid = regExp[name].test(value);
+        const isValid = regExp[name]?.test(value);
         
         setFormErrors({
             ...formErrors,

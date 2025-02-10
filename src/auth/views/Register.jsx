@@ -6,17 +6,19 @@ import { useMemo, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { startRegisterWithEmail } from "../../redux/auth"
 
+const initialValue = {
+    fullName: 'Kanix Perez',
+    email: 'kanix@google.com',
+    password: 'Abc!1234',
+}
+
 export const Register = () => {
     const dispatch = useDispatch();
     const { status, errorMessage } = useSelector(state => state.auth);
     const {
         fullName, email, password, onInputChange,
         fullNameError, emailError, passwordError, isFormValid
-    } = useForm({
-        fullName: 'Kanix Perez',
-        email: 'kanix@google.com',
-        password: 'Abc!1234',
-    });
+    } = useForm(initialValue);
     const isAuthenticating = useMemo(() => status === 'checking', [status]);
     const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
