@@ -1,10 +1,10 @@
-import { AppRouter } from "./modules/router/AppRouter";
-import { AppTheme } from "./modules/theme";
+import { BrowserRouter } from "react-router"
+import { AppRouter } from "./router/AppRouter"
 
 export const JournalApp = () => {
-  return (
-    <AppTheme>
-        <AppRouter />
-    </AppTheme>
-  )
+    return (
+        <BrowserRouter>
+            <AppRouter />
+        </BrowserRouter>
+    )
 }

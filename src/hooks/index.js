@@ -1,2 +1,2 @@
-export * from './useCheckAuth';
+export * from './useCheckFirebaseAuth';
 export * from './useForm';

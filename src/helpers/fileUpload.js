@@ -1,25 +1,22 @@
-export const fileUpload = async(file) => {
-  if(!file) throw new Error('No se encontró el archivo');
+export const fileUpload = async (file) => {
+    if (!file) throw new Error('No se recibió el archivo para subir');
 
-  const cloudUrl = 'https://api.cloudinary.com/v1_1/kanixdaniel/upload';
+    const cloudURL = `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD}/upload`;
+    const formData = new FormData();
+    formData.append('upload_preset', import.meta.env.VITE_CLOUDINARY_PRESET);
+    formData.append('file', file);
 
-  const formData = new FormData();
-  formData.append('upload_preset', 'react-journalapp');
-  formData.append('file', file);
+    try {
+        const resp = await fetch(cloudURL, {
+            method: 'POST',
+            body: formData
+        });
 
-  try {
-    const resp = await fetch(cloudUrl, {
-      method: 'POST',
-      body: formData
-    });
+        if(!resp.ok) throw new Error('No fue posible subir el archivo. Intente más tarde');
 
-    if (!resp.ok) throw new Error('No se pudo cargar la imagen');
-
-    const cloudResp = await resp.json();
-
-    return cloudResp.secure_url;
-  } catch (error) {
-    console.log(error)
-    throw new Error(error.message);
-  }
+        const cloudResp = await resp.json(resp);
+        return cloudResp.secure_url;
+    } catch (error) {
+        throw new Error(error.message);
+    }
 }
