@@ -8,8 +8,8 @@ import { startEmailSignIn, startGoogleSignIn } from "../../redux/auth";
 import { useMemo } from "react";
 
 const initialValue = {
-    email: 'kanix@google.com',
-    password: 'Abc!1234'
+    email: '',
+    password: ''
 }
 
 export const Login = () => {

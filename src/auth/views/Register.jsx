@@ -7,9 +7,9 @@ import { useDispatch, useSelector } from "react-redux"
 import { startRegisterWithEmail } from "../../redux/auth"
 
 const initialValue = {
-    fullName: 'Kanix Perez',
-    email: 'kanix@google.com',
-    password: 'Abc!1234',
+    fullName: '',
+    email: '',
+    password: '',
 }
 
 export const Register = () => {

@@ -11,7 +11,7 @@ export const AuthLayout = ({ children, title = '' }) => {
             sx={{ minHeight: '100vh', backgroundColor: 'primary.main', padding: 5 }}
         >
             <Grid2
-                size={{ xs: 11, sm: 6, md: 4, lg: 3, xl: 2 }}
+                size={{ xs: 11, sm: 6, md: 4, lg: 3 }}
                 sx={{ backgroundColor: 'white', padding: 3, borderRadius: 2 }}
                 className="box-shadow animate__animated animate__rotateInUpLeft"
             >
